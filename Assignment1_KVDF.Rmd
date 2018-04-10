@@ -1,0 +1,73 @@
+---
+title: "Assignment1_KVDF"
+author: "Valerie de la Fuente"
+date: "4/9/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part 1 Visualization critique
+
+I'm going to criticize the first graph of the following article: 
+
+<https://projects.fivethirtyeight.com/jobs-report-growth-unemployment/>
+
+One of the main features of this graph is its truthfulness, the graph???s main purpose is to scrutinize jobs data by comparing it to past figures and by considering the fact that the numbers given are constantly revised and adjusted. In this sense, the graph does a good job showing the upward and downward revisions of the data. Additionally, both y and x axis make sense as well. 
+
+The truthfulness and functionality of this graph may overlap because its main purpose is to be truthful. The graph achieves it by using color to depict the constant revisions of data. Nevertheless, a better balance between detail and readability could have been achieved by making two graphs to show the different trends more clearly. 
+
+The designer did a good job incorporating the interactive effects so that the graph doesn???t look full of text and looks ???clean???, which makes it look beautiful. Their use of shapes and color is good, however, they could have chosen other colors that contrast better. However, the year labels could be placed before January starts so that it is less confusing. 
+ 
+In terms of insightfulness, the graph achieves it because it is knowledge building. The viewer can learn about the upward and downward revision trends, get a good sense of historical data and follow the story in an interactive way. 
+
+The graph is also enlightening, job rates and growth is a fundamental macro economic indicator and the analysis shown by the graph, makes it easier to judge alleged improvements or losses. The data depicted in this graph is important because, by understanding better these trends, the population becomes more aware of when the media is exaggerating job creation or downplaying it to criticize or support a party. 
+
+
+
+# Part 2: ggplot2 and the grammar of graphics
+
+```{r}
+library(tidyverse)
+```
+```{r}
+gss_cat %>%
+  count(marital)
+```
+
+```{r}
+gss_cat1 <-
+gss_cat[gss_cat$marital !="No answer", , drop = FALSE]; gss_cat$marital <- factor(gss_cat$marital)
+```
+```{r}
+gss_cat1 %>%
+  filter(age > 16) %>%
+  ggplot(mapping = aes(x = year , y = marital)) + 
+  geom_count() +
+  labs(title = "Marital trends in the last fifteen years in the U.S.",
+       subtitle = "N represents number of people",
+       caption = "Data from the General Social Survey", 
+       x = "Year", y = "Marital Status") +
+  theme(legend.position = "bottom") +
+  theme_bw()
+```
+
+
+Sources: <https://stackoverflow.com/questions/3813190/removing-a-particular-category-from-a-data-frame-in-r>
+
+<http://r4ds.had.co.nz/>
+
+I used the data from the General Social Survey to analyze how are the marital trends changing. The graph is truthful for the following reasons:  a) it uses a representative sample for the U.S. population b) the axis are not deceiving, that is, the years are the entire years available in the sample (2000, 2002, 2004, 2006, 2008, 2010, 2012 and 2014) and the categories are the most prominent ones. I eliminated the ???No answer??? category for the sake of ???beauty??? and not overwhelming the viewer with categories that were negligible for the analysis. Only 17 people were placed in the category ???No answer??? out of 21,483 persons, or 0.08% c) I filtered the sample by age so that ???never married??? wasn???t overrepresented and chose age > 16 because in spite of 18 being the legal age for marriage in the U.S., most states allows marriages of 16 years old with the parents consent. d) Every year they interviewed a different number of people, that???s why this representation had to focus on relative sizes in each category rather than absolute terms.
+
+This graph is functional because its objective is to show in the same graph the composition of the marital status in the population and its evolution over time. Its goal is to show that marital status distribution in the population continues to have a similar proportion over time in spite of recent stories about current trends that are making marriage less likely. The circles make a good job showing how has this composition changed in size and I chose this form because it is hard to depict a discrete variable with a continuous one and because, as I previously mentioned, every year they interviewed a different number of people, that???s why this representation had to focus on relative sizes in each category rather than absolute terms. I eliminated a factor to improve readability and the n scale is provided to compare the size of the circles. 
+
+I think the graph is beautiful because it is simple. It doesn???t use more color because we didn???t include additional categories. I defined the x axis as year, so that it is easier to read as a passage of time, and the y axis has clearly defined categories. I also used a white background to contrast better with black. 
+
+It is insightful because it builds knowledge on how is the American Society distributed among marital status and how that distribution hasn???t changed much in 15 years in spite of articles talking about millenials choices to not marry or other similar factors.  The graph is straightforward and simple for any person to understand it.
+
+The graph is enlightening because it addresses an important demographic category that has a correlation with income, education trends and the evolution of women in the workplace. According to this graph, in spite of recent trends, marital status choice hasn???t changed much. 
+
+
+
